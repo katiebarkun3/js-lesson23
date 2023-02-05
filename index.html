@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>классы</title>
+</head>
+<body>
+    
+    <div class="container"></div>
+
+
+    <script>
+        /* function Pen(cost, color) {
+            this.cost = cost;
+            this.color = color;
+        }
+
+        Pen.prototype.getCost = function(){
+            return this.cost;
+        }
+
+        let allPen = [];
+        allPen.push(new Pen(12, 'red'));
+        allPen.push(new Pen(17, 'green'));
+        allPen.push(new Pen(15, 'blue'));
+
+        class TestPen {
+            constructor (cost, color, on){
+                this.cost = cost;
+                this.color = color;
+                this.getCost = function() {
+                    console.log('12345'); //vyzovet etot
+                }
+
+            function createEl () { //nikuda ne popadayet, use pri sozdanii
+                let el = document.createElement('div');
+                document.body.append(el);
+                return el;
+            }
+
+                this.el1 = createEl();
+
+                if(on) {
+                    this.on = true;
+                } else { this.on = false; }
+                // this.el2 = createEl();
+                // this.el3 = createEl(); 
+
+            }
+            getCost() {
+                return this.cost; //esli togo net - etot
+            }
+        }
+
+
+        let newPen1 = new TestPen(15, 'yellow', true);
+        console.log(newPen1);
+        console.log(10 + newPen1.getCost()); */
+
+
+        class Element {
+            static val1 = 15;
+            #value; //kak constanta
+            // _element = 'element'; //if _ - menyat nelzya
+            constructor(classes, container) {
+                this.#value = 15;
+                this.el = document.createElement('div');
+                if(classes){
+                    this.el.classList.add(classes);
+                }
+
+                this.el.innerText = Element.val1;
+
+                if(!container){
+                    document.body.append(this.el)
+                } else {container.append(this.el)}
+            }
+
+            setColor(color){
+                this.el.style.backgroundColor = color;
+            }
+
+            setSize(width, height){
+                this.el.style.height = height;
+                this.el.style.width = width;
+            }
+
+        }
+
+        let el1 = new Element ('test', document.querySelector('.container'));
+        el1.setColor('red');
+        el1.setSize('100px', '100px');
+        console.log(el1);
+
+        class Square extends Element{
+            //constructor zabral u Element
+            setSize(size){
+                this.el.style.width = size;
+                this.el.style.height = size;
+            }
+        }
+
+
+
+
+        class Circle extends Square{
+            constructor(classes, container){
+                super(classes, container);
+                this.el.style.borderRadius = '50%';
+                this.el.style.position = 'absolute';
+                this.el.style.left = '0px';
+                this.el.style.top = '0px';
+                
+            }
+
+            moveCircle(speed){
+                this.timer = setInterval(
+                    (function(){
+                    this.el.style.left = `${parseInt(getComputedStyle(this.el).left) + 10}px`
+                }).bind(this)
+                , speed);
+
+            }
+            stopCircle(){
+                clearInterval(this.timer);
+            }
+        }
+
+        let el2 = new Circle();
+        el2.setColor('gold');
+        el2.setSize('100px');
+        el2.moveCircle(50);
+
+        setTimeout(function(){
+            el2.stopCircle();
+        }, 5000)
+
+
+
+    </script>
+
+
+
+</body>
+</html>
